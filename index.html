@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAPD Crime Map</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+</head>
+<body>
+    <div id="controls">
+
+        <div style="background-color: #1a202c; padding: 1.5rem; margin: -1.5rem -1.5rem 1.5rem -1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <h2 style="color: white; margin: 0; font-size: 2rem; font-weight: 700; text-align: center; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; letter-spacing: 0.025em;">LAPD Crime Map</h2>
+        </div>
+
+        <!-- Info message in its own section -->
+        <div class="control-section" style="margin-top: 0;">
+            <p style="color: #4a5568; font-size: 1rem; margin: 0; text-align: center; line-height: 1.5;">
+                Click on any police region to view detailed reporting district information.
+            </p>
+        </div>
+        <div class="control-section">
+            <button class="btn btn-info" id="regionsButton">Return to Regional View</button>
+            
+            <div class="date-picker">
+                <label class="control-label" for="dateInput">Select Date</label>
+                <input type="date" class="form-control" id="dateInput" value="2024-01-01" min="2024-01-01" max="2024-10-03">
+            </div>
+
+            <div class="view-controls">
+                <div class="btn-group w-100" role="group">
+                    <button class="btn btn-outline-primary active" id="dailyButton">Daily</button>
+                    <button class="btn btn-outline-primary" id="weeklyButton">Weekly</button>
+                </div>
+            </div>
+
+            <div id="weekDisplay" style="display: none;">
+                <small class="text-muted">Week: <span id="weekRange"></span></small>
+            </div>
+        </div>
+
+        <div class="control-section">
+            <h4>Time Controls</h4>
+            <div class="time-controls">
+                <button class="btn btn-primary" id="playButton">Play</button>
+                <button class="btn btn-secondary" id="pauseButton">Pause</button>
+                <button class="btn btn-danger" id="stopButton">Reset</button>
+            </div>
+
+            <div id="dailyScrubber" class="scrubber-container">
+                <label class="control-label" for="scrubber">Time of Day</label>
+                <input type="range" class="form-control-range" id="scrubber" min="1" max="6" value="1" step="1">
+                <div id="scrubberValue">12:00 AM - 4:00 AM</div>
+            </div>
+
+            <div id="weeklyScrubber" class="scrubber-container" style="display: none;">
+                <label class="control-label" for="weekScrubber">Day of Week</label>
+                <input type="range" class="form-control-range" id="weekScrubber" min="1" max="7" value="1" step="1">
+                <div id="weekScrubberValue">Monday</div>
+            </div>
+        </div>
+
+        <div class="control-section">
+            <h4>Filters</h4>
+            
+            <div class="filter-section">
+                <div class="filter-header">
+                    <span>Crime Categories</span>
+                    <button class="toggle-btn" id="toggleCrimeCategories">+</button>
+                </div>
+                <div id="crimeCategoryFilters" class="filter-content" style="display: none;">
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="Violent Crime" checked> Violent Crime
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="Property Crime" checked> Property Crime
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="Vehicle-Related Crime" checked> Vehicle-Related Crime
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="Theft" checked> Theft
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="Financial Fraud" checked> Financial Fraud
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="Other/Miscellaneous" checked> Other/Miscellaneous
+                    </label>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-header">
+                    <span>Weapon Categories</span>
+                    <button class="toggle-btn" id="toggleWeaponCategories">+</button>
+                </div>
+                <div id="weaponCategoryFilters" class="filter-content" style="display: none;">
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="No Weapon Used" checked> No Weapon Used
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="Weapon Used" checked> Weapon Used
+                    </label>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-header">
+                    <span>Victim Sex</span>
+                    <button class="toggle-btn" id="toggleVictimSex">+</button>
+                </div>
+                <div id="victimSexFilters" class="filter-content" style="display: none;">
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="Female" checked> Female
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="Male" checked> Male
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="Not Reported" checked> Not Reported
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="Unknown" checked> Unknown
+                    </label>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-header">
+                    <span>Victim Descent</span>
+                    <button class="toggle-btn" id="toggleVictimDescent">+</button>
+                </div>
+                <div id="victimDescentFilters" class="filter-content" style="display: none;">
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="White" checked> White
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="Asian" checked> Asian
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="Other" checked> Other
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="Hispanic/Latino" checked> Hispanic/Latino
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="Black" checked> Black
+                    </label>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-header">
+                    <span>Victim Age Category</span>
+                    <button class="toggle-btn" id="toggleVictimAge">+</button>
+                </div>
+                <div id="victimAgeFilters" class="filter-content" style="display: none;">
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="Not Reported" checked> Not Reported
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="Childhood: 0-12 Years" checked> Childhood: 0-12 Years
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="Teens: 13-19 Years" checked> Teens: 13-19 Years
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="Young Adults: 20-34 Years" checked> Young Adults: 20-34 Years
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="Middle-Aged Adults: 35-54 Years" checked> Middle-Aged Adults: 35-54 Years
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="Older Adults/Seniors: 55+ Years" checked> Older Adults/Seniors: 55+ Years
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="map"></div>
+
+    <script type="module" src="js/index.js"></script>
+</body>
+
+</html>
+

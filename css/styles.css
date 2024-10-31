@@ -1,0 +1,387 @@
+        /* Base Layout */
+        body {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        #controls {
+            width: 550px;
+            background: white;
+            padding: 1.5rem;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            border-right: 1px solid #e5e7eb;
+        }
+
+        #map {
+            flex: 1;
+        }
+
+        /* Control Sections */
+        .control-section {
+            background: white;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e7eb;
+        }
+
+        .control-section h4 {
+            color: #1a202c;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
+            font-weight: 600;
+        }
+
+        /* Button Styles */
+        #regionsButton {
+            width: 100%;
+            margin-bottom: 1.25rem;
+            padding: 0.75rem;
+            font-weight: 500;
+            border-radius: 6px;
+            background-color: #4b5563;
+            border-color: #374151;
+            color: white;
+        }
+
+        #regionsButton:hover {
+            background-color: #374151;
+        }
+
+        .btn-outline-primary {
+            color: #4b5563;
+            border-color: #4b5563;
+        }
+
+        .btn-outline-primary:hover,
+        .btn-outline-primary.active {
+            background-color: #4b5563;
+            border-color: #374151;
+            color: white;
+        }
+
+        .btn-primary {
+            background-color: #4b5563;
+            border-color: #374151;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #374151;
+            border-color: #1f2937;
+        }
+
+        .btn-secondary {
+            background-color: #6b7280;
+            border-color: #4b5563;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #4b5563;
+            border-color: #374151;
+        }
+
+        .btn-danger {
+            background-color: #9ca3af;
+            border-color: #6b7280;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #6b7280;
+            border-color: #4b5563;
+        }
+
+        .btn-info {
+            background-color: #4b5563;
+            border-color: #374151;
+            color: white;
+        }
+
+        .btn-info:hover {
+            background-color: #374151;
+            border-color: #1f2937;
+        }
+
+        .btn:focus {
+            box-shadow: 0 0 0 0.2rem rgba(75, 85, 99, 0.25);
+        }
+
+        /* Control Groups */
+        .view-controls {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn-group .btn {
+            border-radius: 4px;
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+        }
+
+        .time-controls {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .time-controls .btn {
+            flex: 1;
+            padding: 0.5rem;
+            font-size: 0.9rem;
+            border-radius: 4px;
+        }
+
+        /* Scrubber Styles */
+        .scrubber-container {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 0.75rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        .form-control-range {
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        /* Filter Sections */
+        .filter-section {
+            margin-bottom: 1rem;
+        }
+
+        .filter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 0.75rem;
+            background: #f8fafc;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s ease;
+        }
+
+        .filter-header:hover {
+            background: #f1f5f9;
+        }
+
+        .filter-content {
+            padding: 0.75rem;
+            background: white;
+            border-radius: 4px;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* Toggle Buttons */
+        .toggle-btn {
+            width: 28px;
+            height: 28px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #d1d5db;
+            background: white;
+            color: #4b5563;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .toggle-btn:hover {
+            background: #f3f4f6;
+            color: #1f2937;
+            border-color: #9ca3af;
+        }
+
+        /* Checkbox Styles */
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #4a5568;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+            cursor: pointer;
+        }
+
+        .checkbox-label:hover {
+            background-color: #f1f5f9;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            margin-right: 0.75rem;
+        }
+
+        /* Date Picker */
+        .date-picker {
+            margin-bottom: 1.25rem;
+        }
+
+        .date-picker label {
+            font-weight: 500;
+            color: #4a5568;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .date-picker input {
+            border-radius: 4px;
+            border: 1px solid #e2e8f0;
+            padding: 0.5rem;
+            width: 100%;
+        }
+
+        /* Week Display */
+        #weekDisplay {
+            font-size: 0.9rem;
+            color: #718096;
+            padding: 0.75rem;
+            background: #f8fafc;
+            border-radius: 4px;
+            margin-top: 0.75rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* Time Display */
+        #scrubberValue,
+        #weekScrubberValue {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #4a5568;
+            margin-top: 0.75rem;
+            padding: 0.5rem;
+            background: white;
+            border-radius: 4px;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* Labels */
+        .control-label {
+            font-weight: 500;
+            color: #4a5568;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* Bar Chart Styles */
+        .bar-chart {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+            pointer-events: all;
+        }
+
+        .bar-chart.visible {
+            opacity: 1;
+        }
+
+        .bar-chart-title {
+            font-size: 16px;
+            font-weight: bold;
+            fill: #374151;
+        }
+
+        .bar {
+            fill: #4b5563;
+            transition: fill 0.3s ease;
+        }
+
+        .bar:hover {
+            fill: #374151;
+        }
+
+        .bar-text {
+            font-size: 12px;
+            fill: #374151;
+        }
+
+        /* Legend Styles */
+        .legend {
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .legend h4 {
+            margin: 0;
+            font-size: 16px;
+            color: #1a202c;
+        }
+
+        .legend div {
+            display: flex;
+            align-items: center;
+        }
+
+        .legend div span {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+        /* Tooltip */
+        .custom-tooltip {
+            background-color: white;
+            color: #1a202c;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            max-width: 400px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-group .btn-outline-primary {
+            color: #4b5563;
+            border-color: #4b5563;
+            background-color: transparent;
+        }
+
+        .btn-group .btn-outline-primary:hover,
+        .btn-group .btn-outline-primary:active,
+        .btn-group .btn-outline-primary.active,
+        .btn-group .btn-outline-primary:focus {
+            background-color: #4b5563 !important;
+            border-color: #374151 !important;
+            color: white !important;
+            box-shadow: none !important;
+        }
+
+        .btn-group .btn-outline-primary:not(:disabled):not(.disabled):active,
+        .btn-group .btn-outline-primary:not(:disabled):not(.disabled).active {
+            background-color: #4b5563 !important;
+            border-color: #374151 !important;
+            color: white !important;
+        }
+
+        .btn-group .btn-outline-primary:focus {
+            box-shadow: 0 0 0 0.2rem rgba(75, 85, 99, 0.25) !important;
+        }
+
+        /* Ensure buttons in button group maintain border radius */
+        .btn-group>.btn {
+            border-radius: 4px !important;
+            margin: 0 2px;
+        }
