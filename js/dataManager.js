@@ -9,13 +9,13 @@ export async function loadCrimeData(date, timeClass) {
         return loadCrimeDataRegion(date, timeClass, state.currentAprec);
     }
 
-    const geoData = await d3.json("/data/geojson/police_regions.geojson");
+    const geoData = await d3.json("https://kylew145.github.io/MXB362-Case-Study/data/geojson/police_regions.geojson");
     const aprecNames = geoData.features.map(feature => feature.properties.APREC);
     
     try {
         const crimeDataArray = await Promise.all(
             aprecNames.map(aprec => 
-                d3.json(`/data/crime/Crime_Data_${aprec}.json`).catch(() => [])
+                d3.json(`https://kylew145.github.io/MXB362-Case-Study/data/crime/Crime_Data_${aprec}.json`).catch(() => [])
             )
         );
 
@@ -35,7 +35,7 @@ export async function loadCrimeData(date, timeClass) {
 
 async function loadCrimeDataRegion(date, timeClass, targetAprec) {
     try {
-        const geoData = await d3.json("data/geojson/LAPD_Reporting_Districts.geojson");
+        const geoData = await d3.json("https://kylew145.github.io/MXB362-Case-Study/data/geojson/LAPD_Reporting_Districts.geojson");
         const matchingFeature = geoData.features.find(feature => feature.properties.APREC === targetAprec);
 
         if (!matchingFeature) {
