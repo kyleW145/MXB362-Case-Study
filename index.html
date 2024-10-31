@@ -827,7 +827,7 @@
         }
 
         // Add the LAPD police regions
-        addGeoJSONLayer('/data/geojson/police_regions.geojson', '#000000', 10);
+        addGeoJSONLayer('data/geojson/police_regions.geojson', '#000000', 10);
 
         function getSelectedWeaponCategories() {
             const checkboxes = document.querySelectorAll('#weaponCategoryFilters input[type="checkbox"]');
@@ -938,9 +938,9 @@
                 return;
             }
 
-            d3.json("/data/geojson/police_regions.geojson").then(geoData => {
+            d3.json("data/geojson/police_regions.geojson").then(geoData => {
                 const aprecNames = geoData.features.map(feature => feature.properties.APREC);
-                const crimePromises = aprecNames.map(aprec => d3.json(`/data/crime/Crime_Data_${aprec}.json`).catch(() => []));
+                const crimePromises = aprecNames.map(aprec => d3.json(`data/crime/Crime_Data_${aprec}.json`).catch(() => []));
 
                 Promise.all(crimePromises).then(crimeDataArray => {
                     const crimeCount = {};
