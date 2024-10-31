@@ -827,7 +827,7 @@
         }
 
         // Add the LAPD police regions
-        addGeoJSONLayer('data/geojson/police_regions.geojson', '#000000', 10);
+        addGeoJSONLayer('https://kylew145.github.io/MXB362-Case-Study/data/geojson/police_regions.geojson', '#000000', 10);
 
         function getSelectedWeaponCategories() {
             const checkboxes = document.querySelectorAll('#weaponCategoryFilters input[type="checkbox"]');
@@ -938,9 +938,9 @@
                 return;
             }
 
-            d3.json("data/geojson/police_regions.geojson").then(geoData => {
+            d3.json("https://kylew145.github.io/MXB362-Case-Study/data/geojson/police_regions.geojson").then(geoData => {
                 const aprecNames = geoData.features.map(feature => feature.properties.APREC);
-                const crimePromises = aprecNames.map(aprec => d3.json(`data/crime/Crime_Data_${aprec}.json`).catch(() => []));
+                const crimePromises = aprecNames.map(aprec => d3.json(`https://kylew145.github.io/MXB362-Case-Study/data/crime/Crime_Data_${aprec}.json`).catch(() => []));
 
                 Promise.all(crimePromises).then(crimeDataArray => {
                     const crimeCount = {};
@@ -1082,7 +1082,7 @@
 
 // Update loadCrimeDataRegion to show full day counts
 function loadCrimeDataRegion(date, timeClass, targetAprec) {
-    d3.json("data/geojson/LAPD_Reporting_Districts.geojson").then(geoData => {
+    d3.json("https://kylew145.github.io/MXB362-Case-Study/data/geojson/LAPD_Reporting_Districts.geojson").then(geoData => {
         const matchingFeature = geoData.features.find(feature => feature.properties.APREC === targetAprec);
 
         if (!matchingFeature) {
@@ -1090,7 +1090,7 @@ function loadCrimeDataRegion(date, timeClass, targetAprec) {
             return;
         }
 
-        d3.json(`data/crime/Crime_Data_${targetAprec}.json`).then(loadedCrimeData => {
+        d3.json(`https://kylew145.github.io/MXB362-Case-Study/data/crime/Crime_Data_${targetAprec}.json`).then(loadedCrimeData => {
             crimeData = loadedCrimeData;
             const crimeCount = {};
             const crimeCategories = {};
